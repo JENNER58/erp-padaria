@@ -13,7 +13,10 @@ export default function Dashboard() {
       faturamento:0,
       producaoTotal:0,
       usuarios:0,
-      pixPendentes:0
+      pixPendentes:0,
+      receitas:0,
+      despesas:0,
+      saldo:0
 
     })
 
@@ -41,7 +44,7 @@ export default function Dashboard() {
       </h1>
 
       <p style={subtitulo}>
-        Dados reais do sistema
+        Dados reais do ERP Padaria
       </p>
 
       <div style={grid}>
@@ -53,10 +56,7 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            R$ {
-              dados.faturamento
-                .toFixed(2)
-            }
+            R$ {dados.faturamento.toFixed(2)}
           </h1>
 
         </div>
@@ -68,9 +68,7 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            {
-              dados.producaoTotal
-            }
+            {dados.producaoTotal}
           </h1>
 
           <p>
@@ -86,9 +84,7 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            {
-              dados.usuarios
-            }
+            {dados.usuarios}
           </h1>
 
         </div>
@@ -100,9 +96,43 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            {
-              dados.pixPendentes
-            }
+            {dados.pixPendentes}
+          </h1>
+
+        </div>
+
+        <div style={cardReceita}>
+
+          <h3>
+            📈 Receitas
+          </h3>
+
+          <h1>
+            R$ {dados.receitas.toFixed(2)}
+          </h1>
+
+        </div>
+
+        <div style={cardDespesa}>
+
+          <h3>
+            📉 Despesas
+          </h3>
+
+          <h1>
+            R$ {dados.despesas.toFixed(2)}
+          </h1>
+
+        </div>
+
+        <div style={cardSaldo}>
+
+          <h3>
+            💵 Saldo Atual
+          </h3>
+
+          <h1>
+            R$ {dados.saldo.toFixed(2)}
           </h1>
 
         </div>
@@ -140,50 +170,71 @@ const grid = {
 
 }
 
-const cardAzul = {
-
-  background:'#2563eb',
+const baseCard = {
 
   padding:'25px',
 
   borderRadius:'20px',
 
-  color:'#fff'
+  color:'#fff',
+
+  boxShadow:
+    '0 10px 20px rgba(0,0,0,0.3)'
+
+}
+
+const cardAzul = {
+
+  ...baseCard,
+
+  background:'#2563eb'
 
 }
 
 const cardVerde = {
 
-  background:'#16a34a',
+  ...baseCard,
 
-  padding:'25px',
-
-  borderRadius:'20px',
-
-  color:'#fff'
+  background:'#16a34a'
 
 }
 
 const cardRoxo = {
 
-  background:'#7c3aed',
+  ...baseCard,
 
-  padding:'25px',
-
-  borderRadius:'20px',
-
-  color:'#fff'
+  background:'#7c3aed'
 
 }
 
 const cardLaranja = {
 
-  background:'#ea580c',
+  ...baseCard,
 
-  padding:'25px',
+  background:'#ea580c'
 
-  borderRadius:'20px',
+}
 
-  color:'#fff'
+const cardReceita = {
+
+  ...baseCard,
+
+  background:'#0891b2'
+
+}
+
+const cardDespesa = {
+
+  ...baseCard,
+
+  background:'#dc2626'
+
+}
+
+const cardSaldo = {
+
+  ...baseCard,
+
+  background:'#15803d'
 
 }

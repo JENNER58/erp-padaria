@@ -28,6 +28,11 @@ export async function carregarDashboard() {
         .from('profiles')
         .select('*')
 
+    const { data: financeiro } =
+      await supabase
+        .from('financeiro')
+        .select('*')
+
     const faturamento =
       producoes?.reduce(
         (total,item) =>
@@ -48,6 +53,33 @@ export async function carregarDashboard() {
           item.status === 'pendente'
       ).length || 0
 
+    const receitas =
+      financeiro
+        ?.filter(
+          item =>
+            item.tipo === 'entrada'
+        )
+        .reduce(
+          (total,item) =>
+            total + Number(item.valor || 0),
+          0
+        ) || 0
+
+    const despesas =
+      financeiro
+        ?.filter(
+          item =>
+            item.tipo === 'saida'
+        )
+        .reduce(
+          (total,item) =>
+            total + Number(item.valor || 0),
+          0
+        ) || 0
+
+    const saldo =
+      receitas - despesas
+
     return {
 
       faturamento,
@@ -57,7 +89,13 @@ export async function carregarDashboard() {
       usuarios:
         usuarios?.length || 0,
 
-      pixPendentes
+      pixPendentes,
+
+      receitas,
+
+      despesas,
+
+      saldo
 
     }
 
@@ -70,7 +108,10 @@ export async function carregarDashboard() {
       faturamento:0,
       producaoTotal:0,
       usuarios:0,
-      pixPendentes:0
+      pixPendentes:0,
+      receitas:0,
+      despesas:0,
+      saldo:0
 
     }
 
