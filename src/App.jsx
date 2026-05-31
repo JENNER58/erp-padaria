@@ -19,6 +19,7 @@ import Producao from './pages/Producao'
 import Pix from './pages/Pix'
 import Login from './pages/Login'
 import FechamentoMensal from './pages/FechamentoMensal'
+import Notificacoes from './pages/Notificacoes'
 
 function RotaPrivada({ children }) {
 
@@ -139,6 +140,15 @@ export default function App() {
   element={
     <RotaPrivada>
       <FechamentoMensal />
+    </RotaPrivada>
+  }
+/>
+
+<Route
+  path="/notificacoes"
+  element={
+    <RotaPrivada>
+      <Notificacoes />
     </RotaPrivada>
   }
 />

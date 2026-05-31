@@ -50,6 +50,10 @@ export default function Sidebar() {
   📊 Fechamento Mensal
 </Link>
 
+<Link to='/notificacoes' style={link}>
+  🔔 Notificações
+</Link>
+
 <Link to='/usuarios' style={link}>
   👥 Usuário
 </Link>
