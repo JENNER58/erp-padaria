@@ -1,26 +1,48 @@
+import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 
+import {
+  carregarDashboard
+} from '../services/dashboardService'
+
 export default function Dashboard() {
+
+  const [dados,setDados] =
+    useState({
+
+      faturamento:0,
+      producaoTotal:0,
+      usuarios:0,
+      pixPendentes:0
+
+    })
+
+  async function carregar() {
+
+    const resultado =
+      await carregarDashboard()
+
+    setDados(resultado)
+
+  }
+
+  useEffect(() => {
+
+    carregar()
+
+  }, [])
 
   return (
 
     <Layout>
 
-      <div style={topo}>
+      <h1 style={titulo}>
+        📊 Dashboard
+      </h1>
 
-        <div>
-
-          <h1 style={titulo}>
-            📊 Dashboard
-          </h1>
-
-          <p style={subtitulo}>
-            Bem-vindo ao ERP Padaria 🚀
-          </p>
-
-        </div>
-
-      </div>
+      <p style={subtitulo}>
+        Dados reais do sistema
+      </p>
 
       <div style={grid}>
 
@@ -31,12 +53,11 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            R$ 12.450
+            R$ {
+              dados.faturamento
+                .toFixed(2)
+            }
           </h1>
-
-          <p>
-            faturamento mensal
-          </p>
 
         </div>
 
@@ -47,7 +68,9 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            9.820
+            {
+              dados.producaoTotal
+            }
           </h1>
 
           <p>
@@ -63,12 +86,24 @@ export default function Dashboard() {
           </h3>
 
           <h1>
-            5
+            {
+              dados.usuarios
+            }
           </h1>
 
-          <p>
-            usuários ativos
-          </p>
+        </div>
+
+        <div style={cardLaranja}>
+
+          <h3>
+            💳 PIX Pendentes
+          </h3>
+
+          <h1>
+            {
+              dados.pixPendentes
+            }
+          </h1>
 
         </div>
 
@@ -80,25 +115,17 @@ export default function Dashboard() {
 
 }
 
-const topo = {
-
-  marginBottom:'30px'
-
-}
-
 const titulo = {
 
   color:'#fff',
-
-  fontSize:'38px',
-
   marginBottom:'10px'
 
 }
 
 const subtitulo = {
 
-  color:'#94a3b8'
+  color:'#94a3b8',
+  marginBottom:'30px'
 
 }
 
@@ -106,52 +133,57 @@ const grid = {
 
   display:'grid',
 
-  gridTemplateColumns:'repeat(2,1fr)',
+  gridTemplateColumns:
+    'repeat(auto-fit,minmax(250px,1fr))',
 
   gap:'20px'
 
 }
 
-const baseCard = {
+const cardAzul = {
 
-  padding:'30px',
+  background:'#2563eb',
+
+  padding:'25px',
 
   borderRadius:'20px',
 
-  color:'#fff',
-
-  boxShadow:'0 10px 20px rgba(0,0,0,0.3)'
-
-}
-
-const cardAzul = {
-
-  ...baseCard,
-
-  background:'linear-gradient(135deg,#2563eb,#1d4ed8)'
+  color:'#fff'
 
 }
 
 const cardVerde = {
 
-  ...baseCard,
+  background:'#16a34a',
 
-  background:'linear-gradient(135deg,#16a34a,#15803d)'
+  padding:'25px',
 
-}
+  borderRadius:'20px',
 
-const cardLaranja = {
-
-  ...baseCard,
-
-  background:'linear-gradient(135deg,#ea580c,#c2410c)'
+  color:'#fff'
 
 }
 
 const cardRoxo = {
 
-  ...baseCard,
+  background:'#7c3aed',
 
-  background:'linear-gradient(135deg,#7c3aed,#6d28d9)'
+  padding:'25px',
+
+  borderRadius:'20px',
+
+  color:'#fff'
+
+}
+
+const cardLaranja = {
+
+  background:'#ea580c',
+
+  padding:'25px',
+
+  borderRadius:'20px',
+
+  color:'#fff'
 
 }
