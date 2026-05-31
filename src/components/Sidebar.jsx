@@ -43,12 +43,16 @@ export default function Sidebar() {
         </Link>
 
         <Link to='/financeiro' style={link}>
-          💰 Financeiro
-        </Link>
+  💰 Financeiro
+</Link>
 
-        <Link to='/usuarios' style={link}>
-          👥 Usuário
-        </Link>
+<Link to='/fechamento' style={link}>
+  📊 Fechamento Mensal
+</Link>
+
+<Link to='/usuarios' style={link}>
+  👥 Usuário
+</Link>
 
       </nav>
 

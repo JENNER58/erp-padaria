@@ -18,6 +18,7 @@ import Usuarios from './pages/Usuarios'
 import Producao from './pages/Producao'
 import Pix from './pages/Pix'
 import Login from './pages/Login'
+import FechamentoMensal from './pages/FechamentoMensal'
 
 function RotaPrivada({ children }) {
 
@@ -133,6 +134,14 @@ export default function App() {
             </RotaPrivada>
           }
         />
+        <Route
+  path="/fechamento"
+  element={
+    <RotaPrivada>
+      <FechamentoMensal />
+    </RotaPrivada>
+  }
+/>
 
       </Routes>
 
