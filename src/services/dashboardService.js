@@ -33,6 +33,11 @@ export async function carregarDashboard() {
         .from('financeiro')
         .select('*')
 
+    const { data: notificacoes } =
+      await supabase
+        .from('notificacoes')
+        .select('*')
+
     const faturamento =
       producoes?.reduce(
         (total,item) =>
@@ -95,7 +100,19 @@ export async function carregarDashboard() {
 
       despesas,
 
-      saldo
+      saldo,
+
+      producoes:
+        producoes || [],
+
+      financeiro:
+        financeiro || [],
+
+      pix:
+        pix || [],
+
+      notificacoes:
+        notificacoes || []
 
     }
 
@@ -111,7 +128,12 @@ export async function carregarDashboard() {
       pixPendentes:0,
       receitas:0,
       despesas:0,
-      saldo:0
+      saldo:0,
+
+      producoes:[],
+      financeiro:[],
+      pix:[],
+      notificacoes:[]
 
     }
 
