@@ -13,10 +13,7 @@ export async function carregarDashboard() {
       await supabase
         .from('producao')
         .select('*')
-        .eq(
-          'mes_referencia',
-          mesAtual
-        )
+        .eq('mes_referencia', mesAtual)
 
     const { data: pix } =
       await supabase
@@ -37,6 +34,13 @@ export async function carregarDashboard() {
       await supabase
         .from('notificacoes')
         .select('*')
+        .order('id', { ascending:false })
+
+    const { data: fechamentos } =
+      await supabase
+        .from('fechamentos')
+        .select('*')
+        .order('mes_referencia')
 
     const faturamento =
       producoes?.reduce(
@@ -88,7 +92,6 @@ export async function carregarDashboard() {
     return {
 
       faturamento,
-
       producaoTotal,
 
       usuarios:
@@ -97,9 +100,7 @@ export async function carregarDashboard() {
       pixPendentes,
 
       receitas,
-
       despesas,
-
       saldo,
 
       producoes:
@@ -112,7 +113,10 @@ export async function carregarDashboard() {
         pix || [],
 
       notificacoes:
-        notificacoes || []
+        notificacoes || [],
+
+      fechamentos:
+        fechamentos || []
 
     }
 
@@ -133,7 +137,8 @@ export async function carregarDashboard() {
       producoes:[],
       financeiro:[],
       pix:[],
-      notificacoes:[]
+      notificacoes:[],
+      fechamentos:[]
 
     }
 

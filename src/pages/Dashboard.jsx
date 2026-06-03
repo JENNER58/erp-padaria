@@ -1,3 +1,15 @@
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend
+} from 'recharts'
 import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 
@@ -8,18 +20,22 @@ import {
 export default function Dashboard() {
 
   const [dados,setDados] =
-    useState({
+  useState({
 
-      faturamento:0,
-      producaoTotal:0,
-      usuarios:0,
-      pixPendentes:0,
-      receitas:0,
-      despesas:0,
-      saldo:0
+    faturamento:0,
+    producaoTotal:0,
+    usuarios:0,
+    pixPendentes:0,
+    receitas:0,
+    despesas:0,
+    saldo:0,
 
-    })
+    producoes:[],
+    pix:[],
+    notificacoes:[],
+    fechamentos:[]
 
+  })
   async function carregar() {
 
     const resultado =
@@ -34,6 +50,57 @@ export default function Dashboard() {
     carregar()
 
   }, [])
+
+  const dadosFinanceiro = [
+  {
+    nome: 'Receitas',
+    valor: dados.receitas
+  },
+  {
+    nome: 'Despesas',
+    valor: dados.despesas
+  }
+]
+
+const dadosPix = [
+  {
+    nome: 'Pendentes',
+    valor: dados.pixPendentes
+  },
+  {
+    nome: 'Outros',
+    valor: Math.max(
+      (dados.pix?.length || 0) - dados.pixPendentes,
+      0
+    )
+  }
+]
+
+const producaoPorTipo = {}
+
+dados.producoes?.forEach(item => {
+
+  if (!producaoPorTipo[item.tipo_pao]) {
+    producaoPorTipo[item.tipo_pao] = 0
+  }
+
+  producaoPorTipo[item.tipo_pao] +=
+    Number(item.quantidade || 0)
+
+})
+
+const dadosProducao =
+  Object.entries(producaoPorTipo)
+    .map(([nome, quantidade]) => ({
+      nome,
+      quantidade
+    }))
+
+    const dadosFaturamentoMensal =
+  dados.fechamentos?.map(item => ({
+    mes: item.mes_referencia,
+    faturamento: Number(item.faturamento || 0)
+  })) || []
 
   return (
 
@@ -134,10 +201,157 @@ export default function Dashboard() {
           <h1>
             R$ {dados.saldo.toFixed(2)}
           </h1>
-
-        </div>
-
+  
       </div>
+
+      <div
+  style={{
+    marginTop: '40px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit,minmax(400px,1fr))',
+    gap: '20px'
+  }}
+>
+
+  <div style={cardGrafico}>
+    <h2>📈 Receitas x Despesas</h2>
+
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={dadosFinanceiro}>
+        <XAxis dataKey="nome" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="valor" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+
+  <div style={cardGrafico}>
+    <h2>🏭 Produção por Tipo</h2>
+
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={dadosProducao}>
+        <XAxis dataKey="nome" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="quantidade" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+
+  <div style={cardGrafico}>
+  <h2>💳 PIX</h2>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <PieChart>
+      <Pie
+        data={dadosPix}
+        dataKey="valor"
+        nameKey="nome"
+        outerRadius={90}
+        label
+      >
+        {dadosPix.map((_, index) => (
+          <Cell key={index} />
+        ))}
+      </Pie>
+
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  </ResponsiveContainer>
+</div>
+
+<div style={cardGrafico}>
+
+  <h2>
+    📅 Faturamento Mensal
+  </h2>
+
+  <ResponsiveContainer
+    width="100%"
+    height={300}
+  >
+
+    <BarChart
+      data={dadosFaturamentoMensal}
+    >
+
+      <XAxis dataKey="mes" />
+
+      <YAxis />
+
+      <Tooltip />
+
+      <Legend />
+
+      <Bar
+        dataKey="faturamento"
+        name="Faturamento"
+      />
+
+    </BarChart>
+
+  </ResponsiveContainer>
+
+</div>
+
+</div>
+
+<div
+  style={{
+    marginTop:'30px'
+  }}
+>
+
+  <div style={cardGrafico}>
+
+    <h2>
+      🔔 Últimas Notificações
+    </h2>
+
+    {
+      dados.notificacoes?.length === 0 &&
+      (
+        <p>
+          Nenhuma notificação encontrada.
+        </p>
+      )
+    }
+
+    {
+      dados.notificacoes
+        ?.slice(0,5)
+        .map(item => (
+
+          <div
+            key={item.id}
+            style={{
+              background:'#0f172a',
+              padding:'15px',
+              borderRadius:'10px',
+              marginTop:'10px'
+            }}
+          >
+
+            <p>
+              {item.mensagem}
+            </p>
+
+            <small>
+              Status: {item.status}
+            </small>
+
+          </div>
+
+        ))
+    }
+
+  </div>
+
+</div>
+
+</div>
 
     </Layout>
 
@@ -236,5 +450,19 @@ const cardSaldo = {
   ...baseCard,
 
   background:'#15803d'
+
+}
+
+const cardGrafico = {
+
+  background:'#1e293b',
+
+  padding:'25px',
+
+  borderRadius:'20px',
+
+  color:'#fff',
+
+  minHeight:'350px'
 
 }
