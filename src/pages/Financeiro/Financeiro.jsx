@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import Layout from '../components/Layout'
-import { listarFinanceiro, salvarTransacao, calcularResumo } from '../services/financeiroService'
+import Layout from '../../components/Layout'
+import { listarFinanceiro, salvarTransacao, calcularResumo } from '../../services/financeiroService'
 
 export default function Financeiro() {
   const [descricao, setDescricao] = useState('')

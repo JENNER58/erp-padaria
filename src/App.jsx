@@ -13,7 +13,7 @@ import {
 import { supabase } from './lib/supabase'
 
 import Dashboard from './pages/Dashboard'
-import Financeiro from './pages/Financeiro'
+import Financeiro from './pages/Financeiro/Financeiro'
 import Usuarios from './pages/Usuarios'
 import Producao from './pages/Producao'
 import Pix from './pages/Pix'
