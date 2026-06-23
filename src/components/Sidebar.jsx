@@ -1,166 +1,365 @@
-import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import {
+  LayoutDashboard,
+  Factory,
+  CreditCard,
+  Wallet,
+  CalendarDays,
+  Bell,
+  Users,
+  Settings,
+  LogOut,
+  Store
+} from "lucide-react";
+
+const menu = [
+  {
+    titulo: "Dashboard",
+    icone: LayoutDashboard,
+    rota: "/"
+  },
+  {
+    titulo: "Produção",
+    icone: Factory,
+    rota: "/producao"
+  },
+  {
+    titulo: "PIX",
+    icone: CreditCard,
+    rota: "/pix"
+  },
+  {
+    titulo: "Financeiro",
+    icone: Wallet,
+    rota: "/financeiro"
+  },
+  {
+    titulo: "Fechamentos",
+    icone: CalendarDays,
+    rota: "/fechamentos"
+  },
+  {
+    titulo: "Notificações",
+    icone: Bell,
+    rota: "/notificacoes"
+  },
+  {
+    titulo: "Usuários",
+    icone: Users,
+    rota: "/usuarios"
+  },
+  {
+    titulo: "Configurações",
+    icone: Settings,
+    rota: "/configuracoes"
+  }
+];
+
 export default function Sidebar() {
 
- async function sair() {
-
-  await supabase.auth.signOut()
-
-  window.location.href = '/login'
-
-}
+  const paginaAtual = window.location.pathname;
 
   return (
 
-    <div style={sidebar}>
+    <aside style={styles.sidebar}>
 
       <div>
 
-        <h2 style={logo}>
-          🥖 ERP Padaria
-        </h2>
+        <div style={styles.logo}>
 
-        <p style={subtitulo}>
-          Sistema Empresarial
-        </p>
+          <div style={styles.logoIcone}>
+            <Store size={24} color="#fff" />
+          </div>
+
+          <div>
+
+            <div style={styles.logoTitulo}>
+              ERP Padaria
+            </div>
+
+            <div style={styles.logoVersao}>
+              Professional v2.0
+            </div>
+
+          </div>
+
+        </div>
+
+        <nav style={styles.menu}>
+
+          {
+            menu.map(item => {
+
+              const Icone = item.icone;
+
+              const ativo =
+                paginaAtual === item.rota;
+
+              return (
+
+                <a
+                  key={item.rota}
+                  href={item.rota}
+                  style={{
+                    ...styles.item,
+                    ...(ativo ? styles.itemAtivo : {})
+                  }}
+                >
+
+                  <Icone
+                    size={20}
+                  />
+
+                  <span>
+                    {item.titulo}
+                  </span>
+
+                </a>
+
+              );
+
+            })
+          }
+
+        </nav>
 
       </div>
 
-      <hr style={linha}/>
+      <div>
 
-      <nav style={menu}>
+        <div style={styles.usuario}>
 
-        <Link to='/' style={link}>
-          📊 Dashboard
-        </Link>
+          <div style={styles.avatar}>
+            J
+          </div>
 
-        <Link to='/producao' style={link}>
-          🏭 Produção
-        </Link>
+          <div>
 
-        <Link to='/pix' style={link}>
-          💳 PIX
-        </Link>
+            <div style={styles.nome}>
+              Jenner Aviles
+            </div>
 
-        <Link to='/financeiro' style={link}>
-  💰 Financeiro
-</Link>
+            <div style={styles.cargo}>
+              Administrador
+            </div>
 
-<Link to='/fechamento' style={link}>
-  📊 Fechamento Mensal
-</Link>
+          </div>
 
-<Link to='/notificacoes' style={link}>
-  🔔 Notificações
-</Link>
+        </div>
 
-<Link to='/usuarios' style={link}>
-  👥 Usuário
-</Link>
+        <button style={styles.botaoSair}>
 
-      </nav>
+          <LogOut size={18} />
 
-      <button
-        onClick={sair}
-        style={botao}
-      >
-        🚪 Sair
-      </button>
+          <span>Sair</span>
 
-    </div>
+        </button>
 
-  )
+      </div>
+
+    </aside>
+
+  );
 
 }
 
-const sidebar = {
+const styles = {
 
-  width:'260px',
+  sidebar: {
 
-  background:'#0f172a',
+    position: "fixed",
 
-  padding:'30px',
+    left: 0,
 
-  color:'#fff',
+    top: 0,
 
-  display:'flex',
+    width: "260px",
 
-  flexDirection:'column',
+    height: "100vh",
 
-  justifyContent:'space-between',
+    background: "#1E293B",
 
-  minHeight:'100vh',
+    color: "#fff",
 
-  boxShadow:'4px 0 10px rgba(0,0,0,0.3)'
+    display: "flex",
 
-}
+    flexDirection: "column",
 
-const logo = {
+    justifyContent: "space-between",
 
-  fontSize:'28px',
+    padding: "25px 20px",
 
-  marginBottom:'5px'
+    boxSizing: "border-box",
 
-}
+    borderRight: "1px solid #334155"
 
-const subtitulo = {
+  },
 
-  color:'#94a3b8',
+  logo: {
 
-  fontSize:'14px'
+    display: "flex",
 
-}
+    alignItems: "center",
 
-const linha = {
+    gap: "15px",
 
-  border:'1px solid #334155',
+    marginBottom: "40px"
 
-  margin:'20px 0'
+  },
 
-}
+  logoIcone: {
 
-const menu = {
+    width: "50px",
 
-  display:'flex',
+    height: "50px",
 
-  flexDirection:'column',
+    borderRadius: "14px",
 
-  gap:'15px'
+    background: "#2563EB",
 
-}
+    display: "flex",
 
-const link = {
+    justifyContent: "center",
 
-  color:'#fff',
+    alignItems: "center"
 
-  textDecoration:'none',
+  },
 
-  background:'#1e293b',
+  logoTitulo: {
 
-  padding:'14px',
+    fontWeight: "700",
 
-  borderRadius:'12px',
+    fontSize: "18px"
 
-  fontSize:'16px'
+  },
 
-}
+  logoVersao: {
 
-const botao = {
+    color: "#CBD5E1",
 
-  background:'#dc2626',
+    fontSize: "12px"
 
-  color:'#fff',
+  },
 
-  border:'none',
+  menu: {
 
-  padding:'14px',
+    display: "flex",
 
-  borderRadius:'12px',
+    flexDirection: "column",
 
-  cursor:'pointer',
+    gap: "8px"
 
-  marginTop:'30px',
+  },
 
-  fontSize:'16px'
+  item: {
 
-}
+    display: "flex",
+
+    alignItems: "center",
+
+    gap: "12px",
+
+    color: "#E2E8F0",
+
+    textDecoration: "none",
+
+    padding: "14px",
+
+    borderRadius: "12px",
+
+    transition: "0.2s",
+
+    fontWeight: "500"
+
+  },
+
+  itemAtivo: {
+
+    background: "#2563EB",
+
+    color: "#fff"
+
+  },
+
+  usuario: {
+
+    display: "flex",
+
+    alignItems: "center",
+
+    gap: "12px",
+
+    padding: "15px",
+
+    borderTop: "1px solid #334155",
+
+    marginTop: "20px"
+
+  },
+
+  avatar: {
+
+    width: "45px",
+
+    height: "45px",
+
+    borderRadius: "50%",
+
+    background: "#D97706",
+
+    display: "flex",
+
+    justifyContent: "center",
+
+    alignItems: "center",
+
+    fontWeight: "700",
+
+    color: "#fff"
+
+  },
+
+  nome: {
+
+    fontWeight: "600"
+
+  },
+
+  cargo: {
+
+    color: "#CBD5E1",
+
+    fontSize: "13px"
+
+  },
+
+  botaoSair: {
+
+    width: "100%",
+
+    marginTop: "15px",
+
+    background: "#DC2626",
+
+    color: "#fff",
+
+    border: "none",
+
+    borderRadius: "12px",
+
+    padding: "14px",
+
+    cursor: "pointer",
+
+    display: "flex",
+
+    alignItems: "center",
+
+    justifyContent: "center",
+
+    gap: "10px",
+
+    fontWeight: "600"
+
+  }
+
+};

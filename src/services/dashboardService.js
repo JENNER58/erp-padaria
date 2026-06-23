@@ -1,146 +1,128 @@
-import { supabase } from '../lib/supabase'
+import { supabase } from "../lib/supabase";
 
 export async function carregarDashboard() {
 
   try {
 
-    const mesAtual =
-      new Date()
-        .toISOString()
-        .slice(0,7)
+    //----------------------------
+    // PRODUÇÃO
+    //----------------------------
 
-    const { data: producoes } =
-      await supabase
-        .from('producao')
-        .select('*')
-        .eq('mes_referencia', mesAtual)
+    const { data: producao } = await supabase
+      .from("producao")
+      .select("*");
 
-    const { data: pix } =
-      await supabase
-        .from('pix_pagamentos')
-        .select('*')
+    //----------------------------
+    // PIX
+    //----------------------------
 
-    const { data: usuarios } =
-      await supabase
-        .from('profiles')
-        .select('*')
+    const { data: pix } = await supabase
+      .from("pix_pagamentos")
+      .select("*");
 
-    const { data: financeiro } =
-      await supabase
-        .from('financeiro')
-        .select('*')
+    //----------------------------
+    // FINANCEIRO
+    //----------------------------
 
-    const { data: notificacoes } =
-      await supabase
-        .from('notificacoes')
-        .select('*')
-        .order('id', { ascending:false })
+    const { data: financeiro } = await supabase
+      .from("financeiro")
+      .select("*");
 
-    const { data: fechamentos } =
-      await supabase
-        .from('fechamentos')
-        .select('*')
-        .order('mes_referencia')
+    //----------------------------
+    // NOTIFICAÇÕES
+    //----------------------------
 
-    const faturamento =
-      producoes?.reduce(
-        (total,item) =>
-          total + Number(item.valor_total || 0),
-        0
-      ) || 0
+    const { data: notificacoes } = await supabase
+      .from("notificacoes")
+      .select("*")
+      .order("id", { ascending: false })
+      .limit(5);
 
-    const producaoTotal =
-      producoes?.reduce(
-        (total,item) =>
+    //----------------------------
+    // TOTAL PRODUÇÃO
+    //----------------------------
+
+    const totalProduzido =
+      (producao || []).reduce(
+        (total, item) =>
           total + Number(item.quantidade || 0),
         0
-      ) || 0
+      );
+
+    //----------------------------
+    // RECEITA
+    //----------------------------
+
+    const receitaMes =
+      (financeiro || [])
+        .filter(i => i.tipo === "entrada")
+        .reduce(
+          (total, item) =>
+            total + Number(item.valor || 0),
+          0
+        );
+
+    //----------------------------
+    // PIX PENDENTES
+    //----------------------------
 
     const pixPendentes =
-      pix?.filter(
-        item =>
-          item.status === 'pendente'
-      ).length || 0
+      (pix || []).filter(
+        i => i.status === "pendente"
+      ).length;
 
-    const receitas =
-      financeiro
-        ?.filter(
-          item =>
-            item.tipo === 'entrada'
-        )
-        .reduce(
-          (total,item) =>
-            total + Number(item.valor || 0),
-          0
-        ) || 0
+    //----------------------------
+    // PIX PAGOS
+    //----------------------------
 
-    const despesas =
-      financeiro
-        ?.filter(
-          item =>
-            item.tipo === 'saida'
-        )
-        .reduce(
-          (total,item) =>
-            total + Number(item.valor || 0),
-          0
-        ) || 0
-
-    const saldo =
-      receitas - despesas
+    const pixRecebidos =
+      (pix || []).filter(
+        i => i.status === "pago"
+      ).length;
 
     return {
 
-      faturamento,
-      producaoTotal,
+      totalProduzido,
 
-      usuarios:
-        usuarios?.length || 0,
+      receitaMes,
 
       pixPendentes,
 
-      receitas,
-      despesas,
-      saldo,
+      pixRecebidos,
 
-      producoes:
-        producoes || [],
+      producao,
 
-      financeiro:
-        financeiro || [],
+      financeiro,
 
-      pix:
-        pix || [],
+      pix,
 
-      notificacoes:
-        notificacoes || [],
+      notificacoes
 
-      fechamentos:
-        fechamentos || []
+    };
 
-    }
+  } catch (erro) {
 
-  } catch(error) {
-
-    console.log(error)
+    console.log(erro);
 
     return {
 
-      faturamento:0,
-      producaoTotal:0,
-      usuarios:0,
-      pixPendentes:0,
-      receitas:0,
-      despesas:0,
-      saldo:0,
+      totalProduzido: 0,
 
-      producoes:[],
-      financeiro:[],
-      pix:[],
-      notificacoes:[],
-      fechamentos:[]
+      receitaMes: 0,
 
-    }
+      pixPendentes: 0,
+
+      pixRecebidos: 0,
+
+      producao: [],
+
+      financeiro: [],
+
+      pix: [],
+
+      notificacoes: []
+
+    };
 
   }
 

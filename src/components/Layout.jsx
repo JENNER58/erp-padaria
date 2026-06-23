@@ -1,80 +1,44 @@
-import Sidebar from './Sidebar'
-import { useAuth } from '../context/AuthContext'
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import Footer from "./Footer";
 
 export default function Layout({ children }) {
-
-  const {
-    user,
-    logout
-  } = useAuth()
-
-  async function sair() {
-
-    await logout()
-
-    window.location.href = '/login'
-
-  }
-
   return (
-
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        background: '#111827'
-      }}
-    >
-
+    <div style={styles.app}>
       <Sidebar />
 
-      <div
-        style={{
-          flex: 1,
-          padding: '40px',
-          color: '#fff'
-        }}
-      >
+      <div style={styles.content}>
+        <Header />
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '30px'
-          }}
-        >
+        <main style={styles.main}>
+          {children}
+        </main>
 
-          <div>
-
-            <div>
-              👤 {user?.email}
-            </div>
-
-          </div>
-
-          <button
-            onClick={sair}
-            style={{
-              background: '#dc2626',
-              color: '#fff',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '10px',
-              cursor: 'pointer'
-            }}
-          >
-            Sair
-          </button>
-
-        </div>
-
-        {children}
-
+        <Footer />
       </div>
-
     </div>
-
-  )
-
+  );
 }
+
+const styles = {
+  app: {
+    display: "flex",
+    minHeight: "100vh",
+    background: "#F8FAFC",
+    fontFamily:
+      "'Poppins', sans-serif",
+  },
+
+  content: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    marginLeft: "260px",
+  },
+
+  main: {
+    flex: 1,
+    padding: "30px",
+    overflowY: "auto",
+  },
+};
