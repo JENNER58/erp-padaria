@@ -1,0 +1,67 @@
+.container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+.table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:#FFFFFF;
+
+}
+
+.table thead{
+
+    background:#F8FAFC;
+
+}
+
+.table th{
+
+    text-align:left;
+
+    padding:16px;
+
+    font-size:14px;
+
+    color:#475569;
+
+    border-bottom:1px solid #E2E8F0;
+
+}
+
+.table td{
+
+    padding:16px;
+
+    border-bottom:1px solid #F1F5F9;
+
+}
+
+.table tbody tr{
+
+    transition:.2s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#F8FAFC;
+
+}
+
+.empty{
+
+    text-align:center;
+
+    color:#64748B;
+
+    padding:40px;
+
+}

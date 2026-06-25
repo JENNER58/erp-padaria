@@ -1,12 +1,17 @@
+import Select from "../../../components/Select";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
+
+import { TIPOS_PAO } from "../../../constants/tiposPao";
 import { useEffect, useState } from 'react'
-import Layout from '../components/Layout'
+import Layout from '../../../components/Layout'
 
 import {
   salvarProducao,
   listarProducoes
-} from '../services/producaoService'
+} from '../../../services/producaoService'
 
-import { criarNotificacaoAutomatica } from '../services/notificacaoService'
+import { criarNotificacaoAutomatica } from '../../../services/notificacaoService'
 
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -155,40 +160,54 @@ Valor Total: R$ ${valorTotal.toFixed(2)}`
 
       <div style={card}>
 
-        <input
-          type="text"
-          placeholder="Tipo do pão"
-          value={tipoPao}
-          onChange={(e)=>setTipoPao(e.target.value)}
-          style={input}
-        />
+        <Select
+    label="Tipo de pão"
+    options={TIPOS_PAO}
+    value={tipoPao}
+    onChange={(e)=>setTipoPao(e.target.value)}
+    placeholder="Selecione o tipo"
+/>
 
-        <input
-          type="number"
-          placeholder="Quantidade"
-          value={quantidade}
-          onChange={(e)=>setQuantidade(e.target.value)}
-          style={input}
-        />
+        <Input
+    label="Quantidade"
 
-        <input
-          type="number"
-          step="0.01"
-          placeholder="Valor Unitário"
-          value={valorUnitario}
-          onChange={(e)=>setValorUnitario(e.target.value)}
-          style={input}
-        />
+    type="number"
 
-        <button
-          onClick={salvar}
-          style={botao}
-          disabled={loading}
-        >
-          {loading
-            ? 'Salvando...'
-            : 'Salvar Produção'}
-        </button>
+    placeholder="Informe a quantidade"
+
+    value={quantidade}
+
+    onChange={(e)=>setQuantidade(e.target.value)}
+/>
+
+        <Input
+
+label="Valor Unitário"
+
+type="number"
+
+step="0.01"
+
+placeholder="0,00"
+
+value={valorUnitario}
+
+onChange={(e)=>setValorUnitario(e.target.value)}
+/>
+
+        <Button
+
+variant="success"
+
+loading={loading}
+
+onClick={salvar}
+
+>
+
+Salvar Produção
+
+</Button>
 
       </div>
 

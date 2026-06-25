@@ -1,0 +1,49 @@
+.container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+.select{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #CBD5E1;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    background:#FFFFFF;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.select:focus{
+
+    outline:none;
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
+
+}
