@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout/Layout'
 import {
   fecharMes,
   listarFechamentos
-} from '../services/fechamentoService'
+} from '../../services/fechamentoService'
 
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'

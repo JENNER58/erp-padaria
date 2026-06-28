@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout/Layout'
 
 import {
   salvarNotificacao,
   listarNotificacoes
 }
-from '../services/notificacaoService'
+from '../../services/notificacaoService'
 
 export default function Notificacoes() {
 

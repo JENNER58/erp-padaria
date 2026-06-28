@@ -1,17 +1,17 @@
-import Select from "../../../components/Select";
-import Input from "../../../components/Input";
-import Button from "../../../components/Button";
+import Select from "../../components/Select";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
-import { TIPOS_PAO } from "../../../constants/tiposPao";
+import { TIPOS_PAO } from "../../constants/tiposPao";
 import { useEffect, useState } from 'react'
-import Layout from '../../../components/Layout'
+import Layout from '../../components/Layout/Layout'
 
 import {
   salvarProducao,
   listarProducoes
-} from '../../../services/producaoService'
+} from '../../services/producaoService'
 
-import { criarNotificacaoAutomatica } from '../../../services/notificacaoService'
+import { criarNotificacaoAutomatica } from '../../services/notificacaoService'
 
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'

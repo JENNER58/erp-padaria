@@ -1,124 +1,64 @@
-import {
-  LayoutDashboard,
-  Factory,
-  CreditCard,
-  Wallet,
-  CalendarDays,
-  Bell,
-  Users,
-  Settings,
-  LogOut,
-  Store
-} from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { LogOut, Store } from "lucide-react";
 
-const menu = [
-  {
-    titulo: "Dashboard",
-    icone: LayoutDashboard,
-    rota: "/"
-  },
-  {
-    titulo: "Produção",
-    icone: Factory,
-    rota: "/producao"
-  },
-  {
-    titulo: "PIX",
-    icone: CreditCard,
-    rota: "/pix"
-  },
-  {
-    titulo: "Financeiro",
-    icone: Wallet,
-    rota: "/financeiro"
-  },
-  {
-    titulo: "Fechamentos",
-    icone: CalendarDays,
-    rota: "/fechamentos"
-  },
-  {
-    titulo: "Notificações",
-    icone: Bell,
-    rota: "/notificacoes"
-  },
-  {
-    titulo: "Usuários",
-    icone: Users,
-    rota: "/usuarios"
-  },
-  {
-    titulo: "Configurações",
-    icone: Settings,
-    rota: "/configuracoes"
-  }
-];
+import { MENU } from "../../constants/menu";
+
+import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
-
-  const paginaAtual = window.location.pathname;
-
   return (
-
-    <aside style={styles.sidebar}>
+    <aside className={styles.sidebar}>
 
       <div>
 
-        <div style={styles.logo}>
+        <div className={styles.logo}>
 
-          <div style={styles.logoIcone}>
-            <Store size={24} color="#fff" />
+          <div className={styles.logoIcone}>
+            <Store size={24} />
           </div>
 
           <div>
 
-            <div style={styles.logoTitulo}>
+            <h2 className={styles.logoTitulo}>
               ERP Padaria
-            </div>
+            </h2>
 
-            <div style={styles.logoVersao}>
+            <span className={styles.logoVersao}>
               Professional v2.0
-            </div>
+            </span>
 
           </div>
 
         </div>
 
-        <nav style={styles.menu}>
+        <nav className={styles.menu}>
 
-          {
-            menu.map(item => {
+          {MENU.map((item) => {
 
-              const Icone = item.icone;
+            const Icon = item.icone;
 
-              const ativo =
-                paginaAtual === item.rota;
+            return (
 
-              return (
+              <NavLink
+                key={item.rota}
+                to={item.rota}
+                end={item.rota === "/"}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.item} ${styles.ativo}`
+                    : styles.item
+                }
+              >
 
-                <a
-                  key={item.rota}
-                  href={item.rota}
-                  style={{
-                    ...styles.item,
-                    ...(ativo ? styles.itemAtivo : {})
-                  }}
-                >
+                <Icon size={20} />
 
-                  <Icone
-                    size={20}
-                  />
+                <span>{item.titulo}</span>
 
-                  <span>
-                    {item.titulo}
-                  </span>
+              </NavLink>
 
-                </a>
+            );
 
-              );
-
-            })
-          }
+          })}
 
         </nav>
 
@@ -126,19 +66,19 @@ export default function Sidebar() {
 
       <div>
 
-        <div style={styles.usuario}>
+        <div className={styles.usuario}>
 
-          <div style={styles.avatar}>
+          <div className={styles.avatar}>
             J
           </div>
 
           <div>
 
-            <div style={styles.nome}>
+            <div className={styles.nome}>
               Jenner Aviles
             </div>
 
-            <div style={styles.cargo}>
+            <div className={styles.cargo}>
               Administrador
             </div>
 
@@ -146,7 +86,7 @@ export default function Sidebar() {
 
         </div>
 
-        <button style={styles.botaoSair}>
+        <button className={styles.botaoSair}>
 
           <LogOut size={18} />
 
@@ -157,209 +97,5 @@ export default function Sidebar() {
       </div>
 
     </aside>
-
   );
-
 }
-
-const styles = {
-
-  sidebar: {
-
-    position: "fixed",
-
-    left: 0,
-
-    top: 0,
-
-    width: "260px",
-
-    height: "100vh",
-
-    background: "#1E293B",
-
-    color: "#fff",
-
-    display: "flex",
-
-    flexDirection: "column",
-
-    justifyContent: "space-between",
-
-    padding: "25px 20px",
-
-    boxSizing: "border-box",
-
-    borderRight: "1px solid #334155"
-
-  },
-
-  logo: {
-
-    display: "flex",
-
-    alignItems: "center",
-
-    gap: "15px",
-
-    marginBottom: "40px"
-
-  },
-
-  logoIcone: {
-
-    width: "50px",
-
-    height: "50px",
-
-    borderRadius: "14px",
-
-    background: "#2563EB",
-
-    display: "flex",
-
-    justifyContent: "center",
-
-    alignItems: "center"
-
-  },
-
-  logoTitulo: {
-
-    fontWeight: "700",
-
-    fontSize: "18px"
-
-  },
-
-  logoVersao: {
-
-    color: "#CBD5E1",
-
-    fontSize: "12px"
-
-  },
-
-  menu: {
-
-    display: "flex",
-
-    flexDirection: "column",
-
-    gap: "8px"
-
-  },
-
-  item: {
-
-    display: "flex",
-
-    alignItems: "center",
-
-    gap: "12px",
-
-    color: "#E2E8F0",
-
-    textDecoration: "none",
-
-    padding: "14px",
-
-    borderRadius: "12px",
-
-    transition: "0.2s",
-
-    fontWeight: "500"
-
-  },
-
-  itemAtivo: {
-
-    background: "#2563EB",
-
-    color: "#fff"
-
-  },
-
-  usuario: {
-
-    display: "flex",
-
-    alignItems: "center",
-
-    gap: "12px",
-
-    padding: "15px",
-
-    borderTop: "1px solid #334155",
-
-    marginTop: "20px"
-
-  },
-
-  avatar: {
-
-    width: "45px",
-
-    height: "45px",
-
-    borderRadius: "50%",
-
-    background: "#D97706",
-
-    display: "flex",
-
-    justifyContent: "center",
-
-    alignItems: "center",
-
-    fontWeight: "700",
-
-    color: "#fff"
-
-  },
-
-  nome: {
-
-    fontWeight: "600"
-
-  },
-
-  cargo: {
-
-    color: "#CBD5E1",
-
-    fontSize: "13px"
-
-  },
-
-  botaoSair: {
-
-    width: "100%",
-
-    marginTop: "15px",
-
-    background: "#DC2626",
-
-    color: "#fff",
-
-    border: "none",
-
-    borderRadius: "12px",
-
-    padding: "14px",
-
-    cursor: "pointer",
-
-    display: "flex",
-
-    alignItems: "center",
-
-    justifyContent: "center",
-
-    gap: "10px",
-
-    fontWeight: "600"
-
-  }
-
-};

@@ -1,87 +1,22 @@
 import {
   BrowserRouter,
   Routes,
-  Route,
-  Navigate
-} from 'react-router-dom'
+  Route
+} from "react-router-dom";
 
-import {
-  useEffect,
-  useState
-} from 'react'
+import ProtectedRoute from "./components/ProtectedRoute";
 
-import { supabase } from './lib/supabase'
-
-import Dashboard from './pages/Dashboard'
-import Financeiro from './pages/Financeiro/Financeiro'
-import Usuarios from './pages/Usuarios'
-import Producao from './pages/Producao/components/Producao'
-import Pix from './pages/Pix'
-import Login from './pages/Login'
-import FechamentoMensal from './pages/FechamentoMensal'
-import Notificacoes from './pages/Notificacoes'
-
-function RotaPrivada({ children }) {
-
-  const [loading, setLoading] = useState(true)
-  const [session, setSession] = useState(null)
-
-  useEffect(() => {
-
-    async function verificarSessao() {
-
-      const {
-        data
-      } = await supabase.auth.getSession()
-
-      setSession(data.session)
-      setLoading(false)
-
-    }
-
-    verificarSessao()
-
-    const {
-      data: authListener
-    } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session)
-      }
-    )
-
-    return () => {
-      authListener.subscription.unsubscribe()
-    }
-
-  }, [])
-
-  if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        Carregando...
-      </div>
-    )
-  }
-
-  if (!session) {
-    return <Navigate to="/login" />
-  }
-
-  return children
-
-}
+import Login from "./pages/Login/Login";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Producao from "./pages/Producao/Producao";
+import Financeiro from "./pages/Financeiro/Financeiro";
+import Pix from "./pages/Pix/Pix";
+import Usuarios from "./pages/Usuarios/Usuarios";
+import Notificacoes from "./pages/Notificacoes/Notificacoes";
+import FechamentoMensal from "./pages/FechamentoMensal/FechamentoMensal";
 
 export default function App() {
-
   return (
-
     <BrowserRouter>
 
       <Routes>
@@ -94,69 +29,68 @@ export default function App() {
         <Route
           path="/"
           element={
-            <RotaPrivada>
+            <ProtectedRoute>
               <Dashboard />
-            </RotaPrivada>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/producao"
           element={
-            <RotaPrivada>
+            <ProtectedRoute>
               <Producao />
-            </RotaPrivada>
-          }
-        />
-
-        <Route
-          path="/pix"
-          element={
-            <RotaPrivada>
-              <Pix />
-            </RotaPrivada>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/financeiro"
           element={
-            <RotaPrivada>
+            <ProtectedRoute>
               <Financeiro />
-            </RotaPrivada>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/pix"
+          element={
+            <ProtectedRoute>
+              <Pix />
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/usuarios"
           element={
-            <RotaPrivada>
+            <ProtectedRoute>
               <Usuarios />
-            </RotaPrivada>
+            </ProtectedRoute>
           }
         />
-        <Route
-  path="/fechamento"
-  element={
-    <RotaPrivada>
-      <FechamentoMensal />
-    </RotaPrivada>
-  }
-/>
 
-<Route
-  path="/notificacoes"
-  element={
-    <RotaPrivada>
-      <Notificacoes />
-    </RotaPrivada>
-  }
-/>
+        <Route
+          path="/notificacoes"
+          element={
+            <ProtectedRoute>
+              <Notificacoes />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/fechamento"
+          element={
+            <ProtectedRoute>
+              <FechamentoMensal />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
 
     </BrowserRouter>
-
-  )
-
+  );
 }

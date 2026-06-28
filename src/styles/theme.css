@@ -1,0 +1,21 @@
+.page{
+
+    padding:32px;
+
+}
+
+.title{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.subtitle{
+
+    color:var(--text-secondary);
+
+}

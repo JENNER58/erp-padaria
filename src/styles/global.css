@@ -1,0 +1,19 @@
+body{
+
+    background:var(--background);
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+img{
+
+    max-width:100%;
+
+}
