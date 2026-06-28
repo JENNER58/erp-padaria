@@ -6,7 +6,9 @@ import { MENU } from "../../constants/menu";
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
+
   return (
+
     <aside className={styles.sidebar}>
 
       <div>
@@ -14,7 +16,7 @@ export default function Sidebar() {
         <div className={styles.logo}>
 
           <div className={styles.logoIcone}>
-            <Store size={24} />
+            <Store size={28}/>
           </div>
 
           <div>
@@ -24,7 +26,7 @@ export default function Sidebar() {
             </h2>
 
             <span className={styles.logoVersao}>
-              Professional v2.0
+              Professional ERP
             </span>
 
           </div>
@@ -33,32 +35,40 @@ export default function Sidebar() {
 
         <nav className={styles.menu}>
 
-          {MENU.map((item) => {
+          {
 
-            const Icon = item.icone;
+            MENU.map((item)=>{
 
-            return (
+              const Icon=item.icone;
 
-              <NavLink
-                key={item.rota}
-                to={item.rota}
-                end={item.rota === "/"}
-                className={({ isActive }) =>
-                  isActive
-                    ? `${styles.item} ${styles.ativo}`
-                    : styles.item
-                }
-              >
+              return(
 
-                <Icon size={20} />
+                <NavLink
+                  key={item.rota}
+                  to={item.rota}
+                  end={item.rota==="/"}
+                  className={({isActive})=>
 
-                <span>{item.titulo}</span>
+                    isActive
 
-              </NavLink>
+                    ?`${styles.item} ${styles.ativo}`
 
-            );
+                    :styles.item
 
-          })}
+                  }
+                >
+
+                  <Icon size={20}/>
+
+                  <span>{item.titulo}</span>
+
+                </NavLink>
+
+              )
+
+            })
+
+          }
 
         </nav>
 
@@ -66,29 +76,9 @@ export default function Sidebar() {
 
       <div>
 
-        <div className={styles.usuario}>
-
-          <div className={styles.avatar}>
-            J
-          </div>
-
-          <div>
-
-            <div className={styles.nome}>
-              Jenner Aviles
-            </div>
-
-            <div className={styles.cargo}>
-              Administrador
-            </div>
-
-          </div>
-
-        </div>
-
         <button className={styles.botaoSair}>
 
-          <LogOut size={18} />
+          <LogOut size={18}/>
 
           <span>Sair</span>
 
@@ -97,5 +87,7 @@ export default function Sidebar() {
       </div>
 
     </aside>
+
   );
+
 }

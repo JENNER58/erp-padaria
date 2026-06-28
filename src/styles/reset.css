@@ -1,26 +1,20 @@
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
 }
 
 html{
 
-    font-size:16px;
+    scroll-behavior:smooth;
 
 }
 
 body{
 
     font-family:"Poppins",sans-serif;
-
-    background:var(--background);
-
-    color:var(--text);
+    background:var(--color-bg);
+    color:var(--color-text);
 
 }
 
@@ -30,7 +24,9 @@ button{
 
 }
 
-input,select{
+input,
+select,
+textarea{
 
     font-family:inherit;
 

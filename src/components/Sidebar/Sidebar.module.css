@@ -1,186 +1,181 @@
 .sidebar{
-  position:fixed;
-  left:0;
-  top:0;
 
-  width:260px;
-  height:100vh;
+    position:fixed;
 
-  background:#1E293B;
+    top:0;
+    left:0;
 
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+    width:270px;
+    height:100vh;
 
-  padding:24px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 
-  border-right:1px solid #334155;
+    padding:24px 18px;
 
-  box-sizing:border-box;
+    background:linear-gradient(
+        180deg,
+        #000B58 0%,
+        #1A2258 100%
+    );
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+    box-shadow:10px 0 35px rgba(0,0,0,.30);
+
+    box-sizing:border-box;
+
+    z-index:100;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:14px;
+/* ---------------- LOGO ---------------- */
 
-  margin-bottom:40px;
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-bottom:36px;
 }
 
 .logoIcone{
 
-  width:52px;
-  height:52px;
+    width:60px;
+    height:60px;
 
-  border-radius:14px;
+    border-radius:18px;
 
-  background:#2563EB;
+    background:linear-gradient(
+        135deg,
+        #00139E,
+        #1D2FB5
+    );
 
-  color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+    color:white;
+
+    box-shadow:0 10px 25px rgba(0,19,158,.45);
+
+    flex-shrink:0;
 }
 
 .logoTitulo{
 
-  margin:0;
+    margin:0;
 
-  color:white;
+    color:#FFFFFF;
 
-  font-size:18px;
+    font-size:20px;
 
-  font-weight:700;
+    font-weight:700;
 }
 
 .logoVersao{
 
-  color:#CBD5E1;
+    color:#AFC6DD;
 
-  font-size:12px;
+    font-size:13px;
 }
+
+/* ---------------- MENU ---------------- */
 
 .menu{
 
-  display:flex;
+    display:flex;
 
-  flex-direction:column;
+    flex-direction:column;
 
-  gap:8px;
+    gap:3px;
 }
 
 .item{
 
-  display:flex;
+    display:flex;
 
-  align-items:center;
+    align-items:center;
 
-  gap:12px;
+    gap:14px;
 
-  text-decoration:none;
+    padding:13px 18px;
 
-  color:#E2E8F0;
+    border-radius:14px;
 
-  padding:14px;
+    text-decoration:none;
 
-  border-radius:12px;
+    color:#E6EBF1;
 
-  transition:.2s;
+    font-weight:500;
 
-  font-weight:500;
+    transition:.25s;
 }
 
 .item:hover{
 
-  background:#334155;
+    background:rgba(29,47,181,.75);
+
+    color:#FFFFFF;
+
+    transform:translateX(2px);
 }
 
 .ativo{
 
-  background:#2563EB;
+    background:linear-gradient(
+        135deg,
+        #00139E,
+        #1D2FB5
+    );
 
-  color:white;
+    color:#FFFFFF;
+
+    border-left:5px solid #ff0000;
+    padding-left:13px;
+    font-weight:600;
+    box-shadow:0 8px 20px rgba(0,19,158,.40);
 }
 
-.usuario{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  padding-top:20px;
-
-  border-top:1px solid #334155;
-}
-
-.avatar{
-
-  width:46px;
-  height:46px;
-
-  border-radius:50%;
-
-  background:#F59E0B;
-
-  color:white;
-
-  display:flex;
-
-  justify-content:center;
-  align-items:center;
-
-  font-weight:bold;
-}
-
-.nome{
-
-  color:white;
-
-  font-weight:600;
-}
-
-.cargo{
-
-  color:#CBD5E1;
-
-  font-size:13px;
-}
+/* ---------------- BOTÃO ---------------- */
 
 .botaoSair{
 
-  margin-top:18px;
+    margin-top:8px;
 
-  width:100%;
+    width:100%;
 
-  border:none;
+    height:48px;
 
-  border-radius:12px;
+    border:none;
 
-  background:#DC2626;
+    border-radius:14px;
 
-  color:white;
+    background:#FF1414;
 
-  padding:14px;
+    color:white;
 
-  cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-  display:flex;
+    gap:10px;
 
-  justify-content:center;
+    font-weight:600;
 
-  align-items:center;
+    cursor:pointer;
 
-  gap:10px;
-
-  font-weight:600;
-
-  transition:.2s;
+    transition:.25s;
 }
 
 .botaoSair:hover{
 
-  background:#B91C1C;
+    background:#FF6262;
+
+    transform:translateY(-2px);
+
 }

@@ -1,21 +1,19 @@
-.page{
+::-webkit-scrollbar{
 
-    padding:32px;
-
-}
-
-.title{
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:var(--text);
+    width:10px;
 
 }
 
-.subtitle{
+::-webkit-scrollbar-thumb{
 
-    color:var(--text-secondary);
+    background:#C9D2E3;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#1D2FB5;
 
 }
